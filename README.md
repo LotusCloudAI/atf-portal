@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# 🇺🇸 American Telugu Federation (ATF) Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Version 1.0.0 – Phase 1 Complete**
 
-## Available Scripts
+This repository hosts the official **American Telugu Federation (ATF) Portal**, developed by **Lotus Cloud** to connect Telugu communities across the United States.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🌐 Overview
+The ATF Portal is a bilingual (English + Telugu) web platform built with **React, TypeScript, Vite, and Tailwind CSS**.  
+It showcases ATF’s vision, programs, chapters, and events with an interactive, mobile-responsive interface.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🧱 Tech Stack
+| Component | Technology |
+|------------|-------------|
+| Frontend | React 19 + TypeScript |
+| Styling | Tailwind CSS + Framer Motion |
+| Routing | React Router DOM v7 |
+| Build Tool | Vite |
+| Deployment | Firebase Hosting / GitHub Pages |
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧩 Features (Phase 1)
+- Hero section with responsive backgrounds and animations  
+- Language toggle (English ↔ Telugu)  
+- Dynamic tiles for News, Events, Chapters, Programs, etc.  
+- Search overlay with live filtering  
+- Light and Dark theme switch  
+- Placeholder pages for Member & Admin portals  
+- Responsive layout optimized for mobile and desktop  
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Next Phase (Planned)
+- Member and Admin login with Firebase Auth  
+- Donate & Membership forms integration  
+- ATF News and Events feeds from Google Sheets API  
+- PADMA Assistant integration for AI chat support  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 👨🏻‍💻 Developed By
+**Dr. Veera B. Dasari (PhD, PMP)**  
+Founder & Chief Architect, **Lotus Cloud**  
+🌐 [https://lotuscloud.ai](https://lotuscloud.ai)
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 📦 How to Run Locally
+```bash
+git clone https://github.com/LotusCloudAI/atf-portal.git
+cd atf-portal
+npm install
+npm run dev
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🏷️ License
+Copyright © 2025 Lotus Cloud. All Rights Reserved.
+This project is developed by Lotus Cloud for the American Telugu Federation (ATF).
+Unauthorized copying, distribution, or modification is prohibited without written consent.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
