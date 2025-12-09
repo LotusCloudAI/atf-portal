@@ -1,0 +1,45 @@
+import BackHome from "../../components/BackHome";
+
+export default function Privacy() {
+  return (
+    <div className="max-w-4xl mx-auto py-10 px-6">
+      <BackHome />
+      <h1 className="text-3xl font-bold text-[#1E3A8A] mb-4">Privacy Policy</h1>
+
+      <p className="mb-4">
+        The American Telugu Federation (ATF) respects your privacy. This Privacy
+        Policy explains how we collect, use, store, and protect your personal
+        information in compliance with applicable U.S. privacy and data
+        protection standards.
+      </p>
+
+      <h2 className="text-xl font-semibold mt-6 mb-2">Information We Collect</h2>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Membership information (name, email, phone, address)</li>
+        <li>Event registration details</li>
+        <li>Donation information</li>
+        <li>Payment data processed securely via third-party processors</li>
+      </ul>
+
+      <h2 className="text-xl font-semibold mt-6 mb-2">How We Use Your Data</h2>
+      <ul className="list-disc pl-6 mb-4">
+        <li>Membership verification</li>
+        <li>Event communication</li>
+        <li>Donation receipts and compliance reporting</li>
+        <li>Improving ATF digital services</li>
+      </ul>
+
+      <p className="mt-6">
+        ATF does not sell, rent, or share your personal information with
+        external organizations except as required for payment processing or legal
+        compliance.
+      </p>
+
+      <p className="mt-6 font-semibold">
+        For payment security, Wells Fargo Merchant Services and/or other
+        third-party gateways handle all card data. ATF does not store credit or
+        debit card numbers.
+      </p>
+    </div>
+  );
+}

@@ -1,0 +1,10 @@
+{ 
+  "members": { ... },
+  "membership_plans": { ... },
+  "payments": { ... },
+  "donations": { ... },
+  "events": { ... },
+  "admin_users": { ... },
+  "member_profiles": { ... },
+  "logs": { ... }
+}
