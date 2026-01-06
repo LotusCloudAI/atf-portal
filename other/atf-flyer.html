@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATF National Youth Day Flyer Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #e0e0e0; /* Background for the window, not the flyer */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Simulating the 800x1100 canvas */
+        .flyer-container {
+            width: 800px;
+            min-height: 1100px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Colors defined in Python code */
+        :root {
+            --atf-blue: #003366;
+            --atf-red: #990000;
+            --atf-gray: #f0f0f0;
+            --text-black: #000000;
+        }
+
+        /* 1. Logo Section */
+        .logo-section {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Placeholder for the Logo */
+        .logo-placeholder {
+            width: 250px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        /* 2. Header Text */
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .org-name {
+            font-size: 24px; /* Scaled relative to 18pt */
+            font-weight: bold;
+            color: var(--text-black);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .event-title {
+            font-size: 36px; /* Scaled relative to 28pt */
+            font-weight: bold;
+            color: var(--atf-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .quote {
+            font-size: 24px; /* Scaled relative to 16pt */
+            font-style: italic;
+            color: var(--atf-red);
+            margin-bottom: 10px;
+        }
+
+        .sub-tagline {
+            font-size: 18px; /* Scaled relative to 14pt */
+            color: var(--text-black);
+            font-weight: 500;
+        }
+
+        /* 3. Categories Box */
+        .categories-box {
+            background-color: var(--atf-gray);
+            width: 700px; /* Width - 50px margins */
+            padding: 40px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            margin-bottom: 40px;
+        }
+
+        .cat-header {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--atf-blue);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--atf-blue);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .category-item {
+            margin-bottom: 25px;
+        }
+
+        .cat-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--text-black);
+            margin-bottom: 5px;
+        }
+
+        .cat-desc {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* 4. Eligibility */
+        .eligibility-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .elig-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--atf-blue);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .age-groups {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--atf-red);
+        }
+
+        /* 5. Timeline */
+        .timeline-section {
+            width: 700px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .divider-line {
+            height: 2px;
+            background-color: var(--text-black);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .dates-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-black);
+        }
+
+        .awards-info {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--atf-blue);
+        }
+
+        /* 6. Footer */
+        .footer-section {
+            width: 100%;
+            background-color: var(--atf-blue);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: auto; /* Push to bottom if content is short */
+            box-sizing: border-box;
+        }
+
+        .register-text {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .register-link {
+            color: white;
+            text-decoration: none;
+            border-bottom: 2px solid white;
+        }
+
+        .org-footer {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="flyer-container">
+        <!-- 1. Logo -->
+        <div class="logo-section">
+            <div class="logo-placeholder">
+                <img src="https://drive.google.com/uc?export=view&id=10JOh6N1grbrfKr259YxQ9GbXa-Hh3Rwy" alt="ATF Logo" style="width:100%; height:auto;">
+            </div>
+        </div>
+
+        <!-- 2. Header -->
+        <div class="header-section">
+            <div class="org-name">American Telugu Federation (ATF)</div>
+            <div class="event-title">National Youth Day Competitions</div>
+            <div class="quote">“Arise, Awake, and Inspire”</div>
+            <div class="sub-tagline">Commemorating Swami Vivekananda Jayanti</div>
+        </div>
+
+        <!-- 3. Categories Box -->
+        <div class="categories-box">
+            <div class="cat-header">COMPETITION CATEGORIES</div>
+
+            <div class="category-item">
+                <div class="cat-title">1. Speech / Oratory</div>
+                <div class="cat-desc">Topic: Swami Vivekananda & Youth Leadership (2-3 mins)</div>
+            </div>
+
+            <div class="category-item">
+                <div class="cat-title">2. Essay Writing</div>
+                <div class="cat-desc">Theme: “Arise, Awake, and Build the Future” (500-800 words)</div>
+            </div>
+
+            <div class="category-item">
+                <div class="cat-title">3. Art & Creativity</div>
+                <div class="cat-desc">Theme: Vivekananda, Youth Power, Culture & Values</div>
+            </div>
+        </div>
+
+        <!-- 4. Eligibility -->
+        <div class="eligibility-section">
+            <div class="elig-title">Eligibility: Telugu Youth in USA</div>
+            <div class="age-groups">
+                Group A: 8–12 Yrs &nbsp;|&nbsp; Group B: 13–17 Yrs &nbsp;|&nbsp; Group C: 18–25 Yrs
+            </div>
+        </div>
+
+        <!-- 5. Timeline -->
+        <div class="timeline-section">
+            <div class="divider-line"></div>
+            <div class="dates-row">
+                <span>📅 DEADLINE: Jan 9, 2026</span>
+                <span>📢 RESULTS: Jan 12 (YouTube Live)</span>
+            </div>
+            <div class="awards-info">
+                🏆 AWARDS: Presented In-Person at Ugadi Celebrations
+            </div>
+        </div>
+
+        <!-- 6. Footer -->
+        <div class="footer-section">
+            <div class="register-text">
+                REGISTER NOW: <a href="https://americantelugufederation.org" class="register-link" target="_blank">www.americantelugufederation.org</a>
+            </div>
+            <div class="org-footer">Organized by American Telugu Federation</div>
+        </div>
+
+    </div>
+
+</body>
+</html>

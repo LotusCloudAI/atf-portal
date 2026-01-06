@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATF Telugu Calendar 2026 - Multi-Lingual</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&family=Roboto:wght@300;400;500;700;900&display=swap');
+
+        :root {
+            --primary-color: #8B0000; /* TTD Red */
+            --header-bg: #8B0000;
+            --weekend-bg: #fff5f5;
+            --festival-color: #d32f2f;
+            --grid-border: #999;
+            --moon-gold: #FFD700;
+            --moon-dark: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', 'Noto Sans Telugu', 'Noto Sans Devanagari', sans-serif;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Controls Area */
+        .controls-bar {
+            background: #222;
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-label {
+            color: #ccc;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        select {
+            background: #444;
+            color: white;
+        }
+
+        .btn {
+            background: white;
+            color: #333;
+            border: none;
+            font-weight: bold;
+        }
+        .btn:hover { background: #eee; }
+
+        /* Print Settings */
+        @page {
+            size: letter landscape;
+            margin: 0;
+        }
+
+        .calendar-page {
+            width: 11in;
+            height: 8.5in;
+            background: white;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .calendar-page.active {
+            display: flex;
+        }
+
+        @media print {
+            body { background: white; display: block; }
+            .controls-bar { display: none; }
+            .calendar-page { 
+                display: flex !important;
+                width: 100%; 
+                height: 100vh; 
+                margin: 0; 
+                border: none; 
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+
+        /* --- LAYOUT SECTIONS --- */
+        .top-section {
+            height: 30%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .header-branding {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .atf-logo-img {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            height: 80px;
+            width: auto;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .atf-brand-box {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            background: rgba(139, 0, 0, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-align: right;
+        }
+
+        .atf-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .atf-web {
+            font-size: 0.8rem;
+            color: #ffd700;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .theme-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .calendar-section {
+            height: 70%;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 4px;
+        }
+
+        .month-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .month-details {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.3;
+        }
+
+        .telugu-masam {
+            font-weight: bold;
+            color: #000;
+            font-size: 1.1rem;
+        }
+
+        /* Grid Structure */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: 30px repeat(6, 1fr);
+            height: 100%;
+            border-top: 1px solid var(--grid-border);
+            border-left: 1px solid var(--grid-border);
+        }
+
+        .day-header {
+            background-color: var(--header-bg);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border-right: 1px solid var(--grid-border);
+            border-bottom: 1px solid var(--grid-border);
+        }
+
+        .calendar-cell {
+            border-right: 1px solid var(--grid-border);
+            border-bottom: 1px solid var(--grid-border);
+            background: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 3px;
+            overflow: hidden;
+        }
+
+        .calendar-cell.sunday { background-color: var(--weekend-bg); }
+
+        .cell-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .date-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #222;
+            line-height: 1;
+        }
+
+        .panchang-info {
+            text-align: right;
+            font-size: 0.65rem;
+            color: #333;
+            line-height: 1.15;
+            width: 85%;
+        }
+
+        .tithi-row { font-weight: 600; font-size: 0.65rem; }
+        .nakshatra-row { color: #555; margin-top: 1px; }
+        .time-text { font-size: 0.55rem; color: #777; }
+        
+        .inauspicious-row {
+            font-size: 0.55rem;
+            color: #555;
+            margin-top: 2px;
+            border-top: 1px dotted #ccc;
+            padding-top: 1px;
+        }
+
+        .festival-text {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--festival-color);
+            text-align: center;
+            margin-top: auto;
+            line-height: 1.1;
+            padding: 2px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            min-height: 18px; /* Maintain height if empty */
+        }
+        
+        .festival-highlight { background-color: #fffde7; }
+
+        .moon-icon { font-size: 1.0rem; margin-left: 2px; vertical-align: middle; }
+        .full-moon { color: var(--moon-gold); text-shadow: 0 0 2px orange; }
+        .new-moon { color: var(--moon-dark); }
+
+        .disclaimer-footer {
+            position: absolute;
+            bottom: 5px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #555;
+            background: rgba(255,255,255,0.9);
+            padding: 5px;
+            border-top: 1px solid #ccc;
+        }
+
+        /* --- LANGUAGE SPECIFIC FONTS --- */
+        [lang="te"] { font-family: 'Noto Sans Telugu', sans-serif; }
+        [lang="hi"] { font-family: 'Noto Sans Devanagari', sans-serif; }
+    </style>
+</head>
+<body>
+
+    <div class="controls-bar">
+        <div class="control-group">
+            <span class="control-label">Location:</span>
+            <select id="locSelect" onchange="regenerate()">
+                <option value="dallas" selected>Dallas, USA (CST)</option>
+                <option value="newyork">New York, USA (EST)</option>
+                <option value="sanfran">San Francisco, USA (PST)</option>
+                <option value="london">London, UK (GMT)</option>
+                <option value="hyderabad">Hyderabad, India (IST)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">Language:</span>
+            <select id="langSelect" onchange="regenerate()">
+                <option value="en" selected>English</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="hi">हिंदी (Hindi)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <button class="btn" onclick="changeSlide(-1)">❮ Prev</button>
+            <button class="btn" onclick="printCalendar()">🖨 Print / PDF</button>
+            <button class="btn" onclick="changeSlide(1)">Next ❯</button>
+        </div>
+    </div>
+
+    <div id="calendar-container"></div>
+
+    <script>
+        // --- TRANSLATION DATABASE ---
+        const i18n = {
+            en: {
+                months: ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"],
+                weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                tithis: ["Padyami", "Vidiya", "Tadiya", "Chavithi", "Panchami", "Shashti", "Saptami", "Ashtami", "Navami", "Dashami", "Ekadashi", "Dwadashi", "Trayodashi", "Chaturdashi", "Purnima", "Amavasya"],
+                nakshatras: ["Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra", "Punarvasu", "Pushyami", "Ashlesha", "Magha", "Pubba", "Uttara", "Hasta", "Chitta", "Swati", "Vishakha", "Anuradha", "Jyeshta", "Moola", "P.Shada", "U.Shada", "Sravana", "Dhanishta", "Satabhisha", "P.Bhadra", "U.Bhadra", "Revati"],
+                masams: ["Pushyam - Magham", "Magham - Phalgunam", "Phalgunam - Chaitram", "Chaitram - Vaishakham", "Vaishakham - Jyeshtham", "Adhik Jyeshtham - Nija Jyeshtham", "Nija Jyeshtham - Ashadham", "Ashadham - Sravanam", "Sravanam - Bhadrapadam", "Bhadrapadam - Ashwayujam", "Ashwayujam - Kartikam", "Kartikam - Margashiram"],
+                labels: {
+                    year: "Year",
+                    compiledBy: "Compiled and calculated by <b>Dr. Veera B. Dasari.</b>",
+                    method: "Calculated using B. V. Raman Ayanamsa and Raphael’s Ephemeris",
+                    till: "Till",
+                    rahu: "Ra", dur: "Du", var: "Va"
+                }
+            },
+            te: {
+                months: ["జనవరి", "ఫిబ్రవరి", "మార్చి", "ఏప్రిల్", "మే", "జూన్", "జూలై", "ఆగస్టు", "సెప్టెంబర్", "అక్టోబర్", "నవంబర్", "డిసెంబర్"],
+                weekdays: ["ఆది", "సోమ", "మంగళ", "బుధ", "గురు", "శుక్ర", "శని"],
+                tithis: ["పాడ్యమి", "విదియ", "తదియ", "చవితి", "పంచమి", "షష్ఠి", "సప్తమి", "అష్టమి", "నవమి", "దశమి", "ఏకాదశి", "ద్వాదశి", "త్రయోదశి", "చతుర్దశి", "పౌర్ణమి", "అమావాస్య"],
+                nakshatras: ["అశ్విని", "భరణి", "కృత్తిక", "రోహిణి", "మృగశిర", "ఆర్ద్ర", "పునర్వసు", "పుష్యమి", "ఆశ్లేష", "మఖ", "పుబ్బ", "ఉత్తర", "హస్త", "చిత్త", "స్వాతి", "విశాఖ", "అనూరాధ", "జ్యేష్ఠ", "మూల", "పూ.షాడ", "ఉ.షాడ", "శ్రావణ", "ధనిష్ఠ", "శతభిషం", "పూ.భాద్ర", "ఉ.భాద్ర", "రేవతి"],
+                masams: ["పుష్యమి - మాఘం", "మాఘం - ఫాల్గుణం", "ఫాల్గుణం - చైత్రం", "చైత్రం - వైశాఖం", "వైశాఖం - జ్యేష్ఠం", "అధిక జ్యేష్ఠం - నిజ జ్యేష్ఠం", "నిజ జ్యేష్ఠం - ఆషాఢం", "ఆషాఢం - శ్రావణం", "శ్రావణం - భాద్రపదం", "భాద్రపదం - ఆశ్వయుజం", "ఆశ్వయుజం - కార్తీకం", "కార్తీకం - మార్గశిరం"],
+                labels: {
+                    year: "సంవత్సరం",
+                    compiledBy: "సంకలనం మరియు గణన: <b>డాక్టర్ వీర బి. దాసరి.</b>",
+                    method: "Calculated using B. V. Raman Ayanamsa and Raphael’s Ephemeris",
+                    till: "వరకు",
+                    rahu: "రా", dur: "దు", var: "వ"
+                }
+            },
+            hi: {
+                months: ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"],
+                weekdays: ["रवि", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"],
+                tithis: ["प्रतिपदा", "द्वितीया", "तृतीया", "चतुर्थी", "पंचमी", "षष्ठी", "सप्तमी", "अष्टमी", "नवमी", "दशमी", "एकादशी", "द्वादशी", "त्रयोदशी", "चतुर्दशी", "पूर्णिमा", "अमावस्या"],
+                nakshatras: ["अश्विनी", "भरणी", "कृत्तिका", "रोहिणी", "मृगशिरा", "आर्द्रा", "पुनर्वसु", "पुष्य", "अश्लेषा", "मघा", "पूर्वा फाल्गुनी", "उत्तरा फाल्गुनी", "हस्त", "चित्रा", "स्वाति", "विशाखा", "अनुराधा", "ज्येष्ठा", "मूल", "पूर्वाषाढ़ा", "उत्तराषाढ़ा", "श्रवण", "धनिष्ठा", "शतभिषा", "पूर्वा भाद्रपद", "उत्तरा भाद्रपद", "रेवती"],
+                masams: ["पौष - माघ", "माघ - फाल्गुन", "फाल्गुन - चैत्र", "चैत्र - वैशाख", "वैशाख - ज्येष्ठ", "अधिक ज्येष्ठ - निज ज्येष्ठ", "निज ज्येष्ठ - आषाढ़", "आषाढ़ - श्रावण", "श्रावण - भाद्रपद", "भाद्रपद - आश्विन", "आश्विन - कार्तिक", "कार्तिक - मार्गशीर्ष"],
+                labels: {
+                    year: "वर्ष",
+                    compiledBy: "संकलन और गणना: <b>डॉ. वीरा बी. दासरी.</b>",
+                    method: "Calculated using B. V. Raman Ayanamsa and Raphael’s Ephemeris",
+                    till: "तक",
+                    rahu: "रा", dur: "दु", var: "व"
+                }
+            }
+        };
+
+        const locations = {
+            dallas: { label: "Dallas, Texas, USA", offset: 0 }, // Baseline
+            newyork: { label: "New York, USA", offset: 1 },
+            sanfran: { label: "San Francisco, USA", offset: -2 },
+            london: { label: "London, UK", offset: 6 },
+            hyderabad: { label: "Hyderabad, India", offset: 11.5 }
+        };
+
+        // --- TIMING CONSTANTS (Standard Panchangam Layout) ---
+        // Rahukalam (Standard Weekday Timings)
+        const rahuTimes = [
+            "4:30-6:00 PM", // Sun
+            "7:30-9:00 AM", // Mon
+            "3:00-4:30 PM", // Tue
+            "12:00-1:30 PM", // Wed
+            "1:30-3:00 PM", // Thu
+            "10:30-12:00 PM", // Fri
+            "9:00-10:30 AM"  // Sat
+        ];
+
+        // Durmuhurtham (Approximate Standard)
+        const durTimes = [
+            "4:24-5:12 PM", // Sun
+            "12:48-1:36 PM", // Mon
+            "8:48-9:36 AM", // Tue
+            "11:58-12:48 PM", // Wed
+            "10:24-11:12 AM", // Thu
+            "8:48-9:36 AM", // Fri
+            "7:58-8:48 AM"  // Sat
+        ];
+
+        // --- CALENDAR DATA ---
+        const year = 2026;
+        const samvatsaram = "Sri Vishwavasu / Parabhava";
+
+        const imageThemes = [
+            "ATF Sankranti Sambaralu", "Maha Shivaratri", "UGADI Celebrations", 
+            "Sri Rama Navami", "Mahanadu", "Eruvaka Purnima", 
+            "Bonalu Festival", "Varalakshmi Vratam", "Ganesh Chaturthi", 
+            "Bathukamma & Dasara", "Deepavali Lights", "Vaikuntha Ekadashi"
+        ];
+
+        // Multi-lingual Festivals
+        const festivalsRaw = {
+            "1-1": { en: "New Year", te: "నూతన సంవత్సరం", hi: "नया साल" },
+            "1-13": { en: "Bhogi", te: "భోగి", hi: "भोगी" },
+            "1-14": { en: "Sankranti", te: "సంక్రాంతి", hi: "मकर संक्रांति" },
+            "1-15": { en: "Kanuma", te: "కనుమ", hi: "कनुमा" },
+            "1-26": { en: "Republic Day", te: "గణతంత్ర దినోత్సవం", hi: "गणतंत्र दिवस" },
+            "2-15": { en: "Maha Shivaratri", te: "మహా శివరాత్రి", hi: "महा शिवरात्रि" },
+            "3-19": { en: "UGADI", te: "ఉగాది", hi: "उगादी" },
+            "3-27": { en: "Sri Rama Navami", te: "శ్రీరామనవమి", hi: "राम नवमी" },
+            "4-2": { en: "Hanuman Jayanti", te: "హనుమాన్ జయంతి", hi: "हनुमान जयंती" },
+            "4-14": { en: "Tamil New Year", te: "తమిళ సంవత్సరాది", hi: "तमिल नव वर्ष" },
+            "5-10": { en: "Mothers Day", te: "మదర్స్ డే", hi: "मातृ दिवस" },
+            "7-4": { en: "USA Indep. Day", te: "అమెరికా స్వాతంత్ర్య దినోత్సవం", hi: "यूएसए स्वतंत्रता दिवस" },
+            "8-15": { en: "Ind. Indep. Day", te: "భారత స్వాతంత్ర్య దినోత్సవం", hi: "स्वतंत्रता दिवस" },
+            "8-21": { en: "Varalakshmi Vrat", te: "వరలక్ష్మి వ్రతం", hi: "वरलक्ष्मी व्रतम" },
+            "9-14": { en: "Ganesh Chaturthi", te: "వినాయక చవితి", hi: "गणेश चतुर्थी" },
+            "10-20": { en: "Dasara", te: "దసరా", hi: "दशहरा" },
+            "11-8": { en: "Deepavali", te: "దీపావళి", hi: "दीपावली" },
+            "12-25": { en: "Christmas", te: "క్రిస్మస్", hi: "क्रिसमस" }
+        };
+
+        // --- STATE ---
+        let currentLang = 'en';
+        let currentLoc = 'dallas';
+        let currentSlide = 0;
+
+        // --- PANCHANGAM LOGIC ---
+        function getTranslatedTithi(index, lang) {
+            const tNames = i18n[lang].tithis;
+            const isTeOrHi = lang === 'te' || lang === 'hi';
+            
+            let tithiName = "";
+            let paksha = ""; // "Shu" or "Kri"
+            let icon = "";
+
+            if (index === 14) { // Purnima
+                tithiName = tNames[14]; 
+                icon = "full";
+            } else if (index === 29) { // Amavasya
+                tithiName = tNames[15];
+                icon = "new";
+            } else {
+                let lookupIdx = index;
+                if (index > 14) {
+                    lookupIdx = index - 15;
+                    paksha = isTeOrHi ? "కృ." : "Kri.";
+                    if(lang === 'hi') paksha = "कृ.";
+                } else {
+                    paksha = isTeOrHi ? "శు." : "Shu.";
+                    if(lang === 'hi') paksha = "शु.";
+                }
+                tithiName = `${paksha} ${tNames[lookupIdx]}`;
+            }
+            return { text: tithiName, icon: icon };
+        }
+
+        function getSimulatedVarjyam() {
+            // Generate a random time window for Varjyam to make it look realistic for layout
+            const hrs = Math.floor(Math.random() * 10) + 1;
+            const mins = Math.floor(Math.random() * 59);
+            const ampm = Math.random() > 0.5 ? "PM" : "AM";
+            const endHrs = (hrs % 12) + 1; 
+            return `${hrs}:${mins.toString().padStart(2,'0')}-${endHrs}:${mins.toString().padStart(2,'0')} ${ampm}`;
+        }
+
+        // --- GENERATOR ---
+        const container = document.getElementById('calendar-container');
+
+        function regenerate() {
+            currentLang = document.getElementById('langSelect').value;
+            currentLoc = document.getElementById('locSelect').value;
+            generateCalendar();
+            
+            const pages = document.querySelectorAll('.calendar-page');
+            pages.forEach(p => p.classList.remove('active'));
+            if(pages[currentSlide]) pages[currentSlide].classList.add('active');
+            
+            document.body.lang = currentLang;
+        }
+
+        function generateCalendar() {
+            container.innerHTML = '';
+            
+            let tithiCounter = 12; 
+            let nakCounter = 3;
+
+            const vocab = i18n[currentLang];
+            const locData = locations[currentLoc];
+
+            for (let month = 0; month < 12; month++) {
+                const page = document.createElement('div');
+                page.className = 'calendar-page';
+                if (month === 0) page.classList.add('active');
+                page.id = `slide-${month}`;
+
+                // Header
+                const top = document.createElement('div');
+                top.className = 'top-section';
+                
+                const imgText = encodeURIComponent(imageThemes[month]);
+                
+                // Default Placeholder
+                let imgSrc = `https://placehold.co/1100x350/f0f0f0/a00000?text=${imgText}&font=roboto`;
+                let imgFit = "cover"; // Default behavior (crop to fill)
+
+                // Custom Image Override for January (Sankranti)
+                if (month === 0) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1PEI53tFLXcnfNkrRzASy9tNEig7BQL02";
+                }
+
+                // Custom Image Override for February (Maha Shivaratri)
+                if (month === 1) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1QeMfxXSptFZ5s-VkNjHefZVli7jfJVkz";
+                }
+
+                // Custom Image Override for March (Ugadi)
+                if (month === 2) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/16KXXB74uyKrXAQw_g2-2bVWJBteYoZ9i";
+                }
+
+                // Custom Image Override for April (Sri Rama Navami)
+                if (month === 3) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/129AssEjshNWEjxtVtWNwcI1teHSmyDo6";
+                }
+
+                // Custom Image Override for May
+                if (month === 4) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1ybXRYgBbefXQmzuhnfdDMNCFiL45uyt7";
+                }
+
+                // Custom Image Override for June
+                if (month === 5) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1bgliAOGhGCKVMkNCNZ1PH7rgjvjGd92K";
+                }
+
+                // Custom Image Override for July
+                if (month === 6) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1XDo6u7BT8Q2loWX5l2fZHMlevSREAl45";
+                }
+
+                // Custom Image Override for August
+                if (month === 7) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1bwSPqlRcIjcZHKFcY7N_f8rdPOTpN-6i";
+                }
+
+                // Custom Image Override for September
+                if (month === 8) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1IES6x70y03dovgziBBeAl374YKorxnHr";
+                    imgFit = "fill"; // Updated: Spread to fill entire area (may stretch)
+                }
+
+                // Custom Image Override for October
+                if (month === 9) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1PzQ4RfNgq0lIAmhuF-ZVwkOqgzr9Tmzw";
+                }
+
+                // Custom Image Override for November
+                if (month === 10) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1DCwwnCm4Lw5a0iLQH-aqCajuD3eX3fDl";
+                }
+
+                // Custom Image Override for December
+                if (month === 11) {
+                    imgSrc = "https://lh3.googleusercontent.com/d/1t0SZgNH4ARV_3WVvPzToVcrihATf6vZ6";
+                }
+
+                top.innerHTML = `
+                    <div class="header-branding">
+                        <img src="https://lh3.googleusercontent.com/d/1sX5_WtGWRukuHY76oDm4Sqf4ORkBygR_" 
+                             onerror="this.onerror=null; this.src='logo.jpg'; this.onerror=function(){this.src='https://placehold.co/150x150/8B0000/FFFFFF?text=ATF+Logo'}" 
+                             class="atf-logo-img" alt="ATF Logo">
+                        <div class="atf-brand-box">
+                            <div class="atf-title">American Telugu Federation</div>
+                            <div class="atf-web">www.ATF-us.org</div>
+                        </div>
+                    </div>
+                    <img src="${imgSrc}" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/1100x350/f0f0f0/a00000?text=${imgText}&font=roboto'"
+                         class="theme-image" 
+                         style="object-fit: ${imgFit};" 
+                         alt="${imgText}">
+                `;
+                page.appendChild(top);
+
+                const calSection = document.createElement('div');
+                calSection.className = 'calendar-section';
+
+                const header = document.createElement('div');
+                header.className = 'month-header';
+                header.innerHTML = `
+                    <div class="month-title">${vocab.months[month]} <span style="font-size:1.4rem; color:#666;">2026</span></div>
+                    <div class="month-details">
+                        <div class="telugu-masam">${vocab.masams[month]}</div>
+                        <div>${samvatsaram}</div>
+                    </div>
+                `;
+                calSection.appendChild(header);
+
+                const grid = document.createElement('div');
+                grid.className = 'calendar-grid';
+
+                // Weekdays
+                vocab.weekdays.forEach(day => {
+                    const dh = document.createElement('div');
+                    dh.className = 'day-header';
+                    dh.textContent = day;
+                    grid.appendChild(dh);
+                });
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                // Empty cells
+                for (let i = 0; i < firstDay; i++) {
+                    const empty = document.createElement('div');
+                    empty.className = 'calendar-cell';
+                    empty.style.backgroundColor = "#f5f5f5";
+                    grid.appendChild(empty);
+                }
+
+                // Days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'calendar-cell';
+                    const dayOfWeek = (firstDay + day - 1) % 7;
+                    if (dayOfWeek === 0) cell.classList.add('sunday');
+
+                    // Calc Panchang
+                    const tData = getTranslatedTithi(tithiCounter, currentLang);
+                    const nName = vocab.nakshatras[nakCounter];
+                    
+                    tithiCounter++; if (tithiCounter >= 30) tithiCounter = 0;
+                    nakCounter++; if (nakCounter >= 27) nakCounter = 0;
+
+                    let endHr = (Math.floor(Math.random() * 10) + 2) + locData.offset;
+                    if (endHr > 12) endHr = endHr - 12;
+                    if (endHr < 1) endHr = 12 + endHr; 
+                    const minStr = Math.floor(Math.random() * 59).toString().padStart(2, '0');
+                    const timeStr = `${Math.abs(Math.floor(endHr))}:${minStr} PM`;
+
+                    // Inauspicious Timings
+                    const rahuStr = rahuTimes[dayOfWeek];
+                    const durStr = durTimes[dayOfWeek];
+                    const varStr = getSimulatedVarjyam(); // Simulated daily variation
+
+                    // Festival
+                    const dateKey = `${month + 1}-${day}`;
+                    const festObj = festivalsRaw[dateKey];
+                    let festName = "";
+                    if (festObj) {
+                        festName = festObj[currentLang] || festObj['en'];
+                        cell.classList.add('festival-highlight');
+                    }
+
+                    // Moon Icons
+                    let moonHtml = '';
+                    if (tData.icon === 'full') moonHtml = '<span class="moon-icon full-moon">🌕</span>';
+                    if (tData.icon === 'new') moonHtml = '<span class="moon-icon new-moon">🌑</span>';
+
+                    cell.innerHTML = `
+                        <div class="cell-top-row">
+                            <div class="date-number">${day}</div>
+                            <div class="panchang-info">
+                                <div class="tithi-row">${tData.text} ${moonHtml}</div>
+                                <div class="time-text">${vocab.labels.till} ${timeStr}</div>
+                                <div class="nakshatra-row">${nName}</div>
+                                <div class="time-text">${vocab.labels.till} ${timeStr}</div>
+                                <div class="inauspicious-row">
+                                    <div><b>${vocab.labels.rahu}:</b> ${rahuStr}</div>
+                                    <div><b>${vocab.labels.dur}:</b> ${durStr}</div>
+                                    <div><b>${vocab.labels.var}:</b> ${varStr}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="festival-text">${festName}</div>
+                    `;
+                    grid.appendChild(cell);
+                }
+                
+                const totalCells = firstDay + daysInMonth;
+                const remaining = (7 - (totalCells % 7)) % 7; 
+                if(remaining > 0 && remaining < 7) {
+                     for(let k=0; k<remaining; k++){
+                         const empty = document.createElement('div');
+                         empty.className = 'calendar-cell';
+                         empty.style.backgroundColor = "#f5f5f5";
+                         grid.appendChild(empty);
+                     }
+                }
+
+                calSection.appendChild(grid);
+
+                if (month === 0) {
+                    const footer = document.createElement('div');
+                    footer.className = 'disclaimer-footer';
+                    footer.innerHTML = `
+                        ${vocab.labels.method}, based on <strong>${locData.label}</strong> standard time.<br>
+                        ${vocab.labels.compiledBy}
+                    `;
+                    calSection.appendChild(footer);
+                }
+
+                page.appendChild(calSection);
+                container.appendChild(page);
+            }
+        }
+
+        function changeSlide(direction) {
+            const pages = document.querySelectorAll('.calendar-page');
+            pages[currentSlide].classList.remove('active');
+            
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = pages.length - 1;
+            if (currentSlide >= pages.length) currentSlide = 0;
+            
+            pages[currentSlide].classList.add('active');
+        }
+
+        function printCalendar() {
+            window.print();
+        }
+
+        generateCalendar();
+    </script>
+</body>
+</html>
