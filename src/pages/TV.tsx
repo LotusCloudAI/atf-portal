@@ -19,7 +19,7 @@ export default function TV() {
   ];
 
   useEffect(() => {
-    const base = collection(db, "tv_programs");
+    const base = collection(db, "tv_videos");
 
     // Load LIVE videos
     const liveQuery = query(base, where("type", "==", "live"));

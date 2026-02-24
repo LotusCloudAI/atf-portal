@@ -1,0 +1,57 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "unauthorized": "You are not authorized to access this page.",
+    "login": "Login",
+    "logout": "Logout",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "chapters": "Chapters",
+    "programs": "Programs",
+    "scholarships": "Scholarships",
+    "governance": "Governance",
+    "memberPortal": "Member Portal",
+    "adminPortal": "Admin Portal",
+    "dashboard": "My Dashboard",
+    "becomeMember": "Become a Member",
+    "donate": "Donate"
+  },
+  "hero": {
+    "title": "American Telugu Federation",
+    "subtitle": "A Unified Telugu Platform Across America.",
+    "missionLine": "Culture. Community. Leadership. Empowerment."
+  },
+  "wings": {
+    "core": "ATF Core",
+    "youth": "ATF Youth",
+    "women": "ATF Women Empowerment",
+    "vaktha": "ATF Vaktha",
+    "explore": "Explore"
+  },
+  "vedic": {
+    "calendarTitle": "5-Year Vedic Calendar",
+    "calendarCTA": "View Calendar",
+    "horoscopeTitle": "Daily Panchangam",
+    "horoscopeCTA": "View Horoscope"
+  },
+  "media": {
+    "title": "ATF TV & YouTube",
+    "watchLive": "Watch Live",
+    "subscribe": "Subscribe"
+  },
+  "news": {
+    "title": "Latest Highlights",
+    "readMore": "Read More"
+  },
+  "footer": {
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "rights": "All Rights Reserved"
+  }
+}
