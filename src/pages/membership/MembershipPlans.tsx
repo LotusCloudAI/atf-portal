@@ -25,24 +25,34 @@ export default function MembershipPlans() {
               key={plan.id}
               className="border rounded-2xl shadow hover:shadow-lg transition bg-white p-6 flex flex-col"
             >
-              <h2 className="text-xl font-bold text-[#B91C1C] mb-2">{plan.title}</h2>
+              <h2 className="text-xl font-bold text-[#B91C1C] mb-2">
+                {plan.title}
+              </h2>
 
               <p className="text-3xl font-semibold text-[#1E3A8A] mb-4">
                 ${plan.price}
                 <span className="text-sm text-gray-500 ml-1">
-                  {plan.type === "lifetime" || plan.type === "lifetime-family"
+                  {plan.type === "lifetime" ||
+                  plan.type === "lifetime-family"
                     ? "one-time"
                     : "/year"}
                 </span>
               </p>
 
               <ul className="text-gray-700 space-y-2 mb-4">
-                {plan.description.map((line, i) => (
-                  <li key={i} className="flex items-start">
+                {Array.isArray(plan.description) ? (
+                  plan.description.map((line, i) => (
+                    <li key={i} className="flex items-start">
+                      <span className="text-[#1E3A8A] font-bold mr-2">•</span>
+                      {line}
+                    </li>
+                  ))
+                ) : (
+                  <li className="flex items-start">
                     <span className="text-[#1E3A8A] font-bold mr-2">•</span>
-                    {line}
+                    {plan.description}
                   </li>
-                ))}
+                )}
               </ul>
 
               <Link

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { TEXT } from "./HomeData";
+import ATFTVSection from "../components/home/ATFTVSection";
 
 interface HomeProps {
   lang: "EN" | "TE";
@@ -11,12 +12,12 @@ interface HomeProps {
   setSearchOpen: (v: boolean) => void;
 }
 
-export default function Home({ lang, theme }: HomeProps) {
+export default function Home({ lang }: HomeProps) {
   const t = TEXT[lang];
 
   return (
     <>
-      {/* HERO SECTION */}
+      {/* ================= HERO SECTION ================= */}
       <section
         className="relative h-[100vh] flex flex-col justify-center items-center text-center text-white"
         style={{
@@ -44,21 +45,32 @@ export default function Home({ lang, theme }: HomeProps) {
         </motion.p>
 
         <motion.div className="flex gap-4 mt-8 z-10">
-          <Link to="/membership" className="bg-[#B91C1C] text-white px-6 py-3 rounded-2xl">
+          <Link
+            to="/membership"
+            className="bg-[#B91C1C] text-white px-6 py-3 rounded-2xl hover:bg-red-700 transition"
+          >
             {t.becomeMember}
           </Link>
-          <Link to="/donate" className="bg-[#1E3A8A] text-white px-6 py-3 rounded-2xl">
+
+          <Link
+            to="/donate"
+            className="bg-[#1E3A8A] text-white px-6 py-3 rounded-2xl hover:bg-blue-900 transition"
+          >
             {t.donateNow}
           </Link>
         </motion.div>
       </section>
 
-      {/* TILE GRID */}
+      {/* ================= TILE GRID ================= */}
       <section className="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {t.tiles.map((tile, i) => (
           <Link to={tile.link} key={i} className="block group">
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition">
-              <img src={tile.image} alt={tile.title} className="w-full h-full object-cover" />
+              <img
+                src={tile.image}
+                alt={tile.title}
+                className="w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition" />
               <div className="absolute bottom-0 p-4 text-white backdrop-blur-sm">
                 <h2 className="text-lg font-bold">{tile.title}</h2>
@@ -69,24 +81,36 @@ export default function Home({ lang, theme }: HomeProps) {
         ))}
       </section>
 
-      {/* LATEST HIGHLIGHTS */}
-      <section className="px-8 py-10 bg-gray-100 dark:bg-gray-800">
-        <h3 className="text-2xl font-bold text-[#1E3A8A] mb-6">Latest Highlights</h3>
+      {/* ================= LATEST HIGHLIGHTS ================= */}
+      <section className="px-8 py-14 bg-gray-100 dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-bold text-[#1E3A8A] mb-8">
+            Latest Highlights
+          </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            "ATF Annual Convention 2025",
-            "Women Empowerment Drive",
-            "Telugu Youth Awards",
-          ].map((headline, i) => (
-            <div key={i} className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow">
-              <div className="h-40 bg-gray-200 dark:bg-gray-700 rounded-md mb-4" />
-              <h4 className="font-semibold text-lg mb-2">{headline}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Updates coming soon.</p>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              "ATF Annual Convention 2025",
+              "Women Empowerment Drive",
+              "Telugu Youth Awards",
+            ].map((headline, i) => (
+              <div
+                key={i}
+                className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow hover:shadow-xl transition"
+              >
+                <div className="h-40 bg-gray-200 dark:bg-gray-700 rounded-md mb-4" />
+                <h4 className="font-semibold text-lg mb-2">{headline}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Updates coming soon.
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* ================= ATF TV SECTION ================= */}
+      <ATFTVSection />
     </>
   );
 }

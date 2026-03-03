@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "american-telugu-federation"
-  }
+    "default": "atf-us"
+  },
+  "targets": {},
+  "etags": {}
 }
