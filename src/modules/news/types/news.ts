@@ -1,11 +1,16 @@
 export interface News {
-  id?: string;
+  id: string;
   title: string;
   summary: string;
   content: string;
   imageUrl: string;
   category: string;
-  published: boolean;
-  createdAt?: any;
-  updatedAt?: any;
+  author: string;
+  createdAt: string;
+  tags: string[];
+  isPremium?: boolean;
+  state?: string;
+  slug?: string;
+  editorStatus?: "pending" | "approved" | "rejected";
+  status?: "draft" | "published";
 }
