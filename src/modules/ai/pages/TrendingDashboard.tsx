@@ -1,5 +1,6 @@
 import { mockNews } from "../../news/data/mockNews";
-
+import { useTranslation } from "react-i18next";
+const { t } = useTranslation();
 const TrendingDashboard = () => {
 
   const views = JSON.parse(localStorage.getItem("views") || "{}");
@@ -11,7 +12,7 @@ const TrendingDashboard = () => {
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold mb-4">
-        Trending Articles
+        {t("trending")}
       </h1>
 
       {sorted.slice(0, 5).map(a => (

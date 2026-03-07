@@ -5,8 +5,11 @@ import NewsGrid from "../components/NewsGrid";
 import Pagination from "../../../components/UI/Pagination";
 import SkeletonCard from "../../../components/UI/SkeletonCard";
 import { useParams } from "react-router-dom";
+import { calculateTrendingScore } from "../utils/trending";
+import { useTranslation } from "react-i18next";
 
 const NewsList = () => {
+  const { t } = useTranslation();
   const [articles, setArticles] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -26,7 +29,6 @@ const NewsList = () => {
       a.content.toLowerCase().includes(search.toLowerCase())
     )
     .filter((a) => (selectedTag ? a.tags?.includes(selectedTag) : true))
-    // Prioritize URL params (stateCode), then fallback to multi-select
     .filter((a) => (stateCode ? a.state === stateCode : true))
     .filter((a) =>
       selectedStates.length ? selectedStates.includes(a.state || "") : true
@@ -100,7 +102,9 @@ const NewsList = () => {
 
           {/* Multi-State Filter */}
           <div className="flex flex-col">
-            <label className="text-xs text-gray-500 mb-1">States (Hold Ctrl/Cmd to multi-select)</label>
+            <label className="text-xs text-gray-500 mb-1">
+              States (Hold Ctrl/Cmd to multi-select)
+            </label>
             <select
               multiple
               className="border p-2 rounded bg-white min-w-[150px]"

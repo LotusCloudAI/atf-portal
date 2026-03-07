@@ -1,8 +1,10 @@
 import { processPayment } from "../services/paymentService";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Checkout = () => {
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const handlePay = async () => {
     setLoading(true);

@@ -1,5 +1,7 @@
 import { mockNews } from "../../news/data/mockNews";
-
+import { useTranslation } from "react-i18next";
+:
+const { t } = useTranslation();
 const ReadingHistory = () => {
   const history = JSON.parse(
     localStorage.getItem("readingHistory") || "[]"
@@ -12,7 +14,7 @@ const ReadingHistory = () => {
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold mb-4">
-        Your Reading History
+        {t("Your Reading History")}
       </h1>
 
       {articles.map(article => (

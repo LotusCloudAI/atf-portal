@@ -1,0 +1,10 @@
+{
+  "news": "News",
+  "recommended": "Recommended For You",
+  "readingHistory": "Reading History",
+  "upgrade": "Upgrade",
+  "checkout": "Checkout",
+  "paymentSuccess": "Payment Successful",
+  "paymentFailed": "Payment Failed",
+  "trending": "Trending Articles"
+}
