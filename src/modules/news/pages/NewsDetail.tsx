@@ -5,6 +5,7 @@ import Breadcrumb from "../../../components/UI/Breadcrumb";
 import { useEffect } from "react";
 import { calculateSimilarity } from "../utils/contentSimilarity";
 import { getRecommendedNews } from "../services/recommendationService";
+import RecommendedNews from "../../ai/components/RecommendedNews";
 
 const NewsDetail = () => {
   const { slug } = useParams();
