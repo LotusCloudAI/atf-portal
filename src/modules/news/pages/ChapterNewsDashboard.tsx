@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { mockNews } from "../data/mockNews";
+import { useRole } from "../../../context/RoleContext";
 
 const ChapterNewsDashboard = () => {
   const { stateCode } = useParams();
@@ -10,6 +11,16 @@ const ChapterNewsDashboard = () => {
   const sorted = stateArticles.sort(
     (a, b) => (b.views || 0) - (a.views || 0)
   );
+  const { role } = useRole();
+  if (role === "state-admin") {
+    // filter news by assigned state
+    const assignedState = "TX";
+  }
+  if (role === "chapter-admin") {
+  // filter by chapterId
+}
+
+
 
 
   return (

@@ -13,6 +13,7 @@ i18n
     },
     lng: localStorage.getItem("language") || "en",
     fallbackLng: "en",
+    returnNull: false, // Ensures null values in JSON don't break the UI
     interpolation: {
       escapeValue: false
     }

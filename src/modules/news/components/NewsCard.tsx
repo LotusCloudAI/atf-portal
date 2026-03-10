@@ -12,6 +12,7 @@ const NewsCard = ({ article }: Props) => {
     <div className="border rounded shadow hover:shadow-lg transition overflow-hidden bg-white">
       <img
         src={article.imageUrl}
+        loading="lazy"
         alt={article.title}
         className="w-full h-48 object-cover"
       />
@@ -22,7 +23,6 @@ const NewsCard = ({ article }: Props) => {
             {article.category}
           </span>
 
-          {/* State Badge (Conditional) */}
           {article.state && (
             <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded ml-2">
               {article.state}
