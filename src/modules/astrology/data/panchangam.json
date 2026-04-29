@@ -1,0 +1,31 @@
+{
+"2026": {
+"March-30": {
+"tithi": {
+"EN": "Shukla Paksha Pratipada",
+"TE": "శుక్ల పక్ష ప్రతిపద",
+"HI": "शुक्ल पक्ष प्रतिपदा"
+},
+"nakshatra": {
+"EN": "Revati",
+"TE": "రేవతి",
+"HI": "रेवती"
+},
+"yoga": "Siddha",
+"karana": "Bava",
+"sunrise": "6:20 AM",
+"sunset": "6:45 PM",
+"rahukalam": "10:30 AM – 12:00 PM",
+"yamagandam": "3:00 PM – 4:30 PM",
+"gulika": "7:30 AM – 9:00 AM",
+"abhijit": "12:05 PM – 12:50 PM",
+"durmuhurtham": "8:45 AM – 9:30 AM",
+"festivals": ["Ugadi"],
+"vrat": ["Chaitra Navratri Begins"],
+"muhurta": [
+"Marriage: 9:15 AM – 10:45 AM",
+"Gruha Pravesh: 11:30 AM – 1:00 PM"
+]
+}
+}
+}

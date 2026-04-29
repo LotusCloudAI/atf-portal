@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
-/* ------------------------------------------------------------------
+/* =========================
+   MODULE IMPORTS (NEW)
+========================= */
+import CalendarPage from "./modules/astrology/pages/CalendarPage";
+
+import MemberDashboard from "./modules/membership/pages/Dashboard";
+import MemberProfile from "./modules/membership/pages/Profile";
+import MemberEvents from "./modules/membership/pages/Events";
+import MemberDonations from "./modules/membership/pages/Donations";
+
+/* =========================
    COMPONENTS
------------------------------------------------------------------- */
+========================= */
 import BackHome from "./components/BackHome";
 
-/* PADMA */
-import PadmaChat from "./pages/padma/PadmaChat";
+/* =========================
+   EXISTING PAGES (KEEP)
+========================= */
 
 /* AUTH */
 import Login from "./pages/auth/Login";
 import AdminLogin from "./pages/auth/AdminLogin";
-
-/* MEMBER PORTAL */
-import MemberDashboard from "./pages/member/MemberDashboard";
-import MemberProfile from "./pages/member/MemberProfile";
-import MemberEvents from "./pages/member/MemberEvents";
-import MemberDonations from "./pages/member/MemberDonations";
 
 /* MEMBERSHIP */
 import Membership from "./pages/Membership";
@@ -26,13 +31,13 @@ import MembershipPlans from "./pages/membership/MembershipPlans";
 import MembershipForm from "./pages/membership/MembershipForm";
 import Payment from "./pages/membership/Payment";
 
-/* ADMIN PORTAL */
+/* ADMIN */
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminEvents from "./pages/admin/AdminEvents";
 import AdminMembers from "./pages/admin/AdminMembers";
 import AdminSettings from "./pages/admin/AdminSettings";
 
-/* REGULAR PAGES */
+/* REGULAR */
 import Home from "./pages/Home";
 import Chapters from "./pages/Chapters";
 import Events from "./pages/Events";
@@ -41,7 +46,7 @@ import Contact from "./pages/Contact";
 /* ASTROLOGY */
 import AstrologyTest from "./pages/AstrologyTest";
 
-/* MEDIA + NEWS */
+/* MEDIA */
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import TV from "./pages/TV";
@@ -55,14 +60,14 @@ import Delivery from "./pages/policies/Delivery";
 import Products from "./pages/policies/Products";
 import Pricing from "./pages/policies/Pricing";
 
-/* SHARED DATA */
+/* DATA */
 import { TEXT, EN_TILES } from "./pages/HomeData";
 
 import "./index.css";
 
-/* --------------------------------------------------------
-   UNDER-CONSTRUCTION PAGE
--------------------------------------------------------- */
+/* =========================
+   UNDER CONSTRUCTION
+========================= */
 function UnderConstruction({ title }: { title: string }) {
   return (
     <>
@@ -75,15 +80,13 @@ function UnderConstruction({ title }: { title: string }) {
   );
 }
 
-/* --------------------------------------------------------
+/* =========================
    MAIN APP
--------------------------------------------------------- */
+========================= */
 export default function App() {
   const [lang, setLang] = useState<"EN" | "TE">("EN");
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [padmaOpen, setPadmaOpen] = useState(false);
 
   const t = TEXT[lang];
 
@@ -166,11 +169,14 @@ export default function App() {
           }
         />
 
-        {/* MEMBER */}
+        {/* MEMBER (NEW MODULE) */}
         <Route path="/member" element={<MemberDashboard />} />
         <Route path="/member/profile" element={<MemberProfile />} />
         <Route path="/member/events" element={<MemberEvents />} />
         <Route path="/member/donations" element={<MemberDonations />} />
+
+        {/* CALENDAR */}
+        <Route path="/calendar" element={<CalendarPage />} />
 
         {/* MEMBERSHIP */}
         <Route path="/membership" element={<Membership />} />
@@ -178,9 +184,6 @@ export default function App() {
         <Route path="/membership/join/:planId" element={<MembershipForm />} />
         <Route path="/membership/checkout/:planId" element={<Payment />} />
         <Route path="/donate" element={<Donate />} />
-
-        {/* PADMA */}
-        <Route path="/padma" element={<PadmaChat />} />
 
         {/* AUTH */}
         <Route path="/login" element={<Login />} />
@@ -204,7 +207,7 @@ export default function App() {
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetail />} />
 
-        {/* MEDIA / YOUTUBE */}
+        {/* MEDIA */}
         <Route path="/media" element={<MediaGallery />} />
         <Route path="/tv" element={<TV />} />
 
@@ -216,7 +219,7 @@ export default function App() {
         <Route path="/policies/services" element={<Products />} />
         <Route path="/policies/pricing" element={<Pricing />} />
 
-        {/* AUTO TILE ROUTES */}
+        {/* AUTO ROUTES */}
         {EN_TILES.map((tile, i) => (
           <Route
             key={i}

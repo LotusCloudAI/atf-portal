@@ -1,0 +1,18 @@
+const BASE_URL = import.meta.env.VITE_ASTRO_API_URL || "http://localhost:8000";
+
+export async function getPanchangam(params: any) {
+  try {
+    const query = new URLSearchParams(params).toString();
+
+    const res = await fetch(`${BASE_URL}/api/v1/panchangam?${query}`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch Panchangam");
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Panchangam API error:", error);
+    return null;
+  }
+}
