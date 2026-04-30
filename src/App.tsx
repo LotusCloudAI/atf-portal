@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import JoinPage from "./modules/membership/pages/JoinPage";
 
 /* =========================
    MODULE IMPORTS (NEW)
@@ -112,7 +113,8 @@ export default function App() {
         </div>
 
         <div className="flex items-center space-x-3">
-          <Link to="/member" className="hover:text-yellow-300 text-sm">
+          {/* UPDATED LINK */}
+          <Link to="/dashboard" className="hover:text-yellow-300 text-sm">
             Member Portal
           </Link>
 
@@ -169,8 +171,9 @@ export default function App() {
           }
         />
 
-        {/* MEMBER (NEW MODULE) */}
+        {/* MEMBER (UPDATED) */}
         <Route path="/member" element={<MemberDashboard />} />
+        <Route path="/dashboard" element={<MemberDashboard />} /> {/* ✅ FIX */}
         <Route path="/member/profile" element={<MemberProfile />} />
         <Route path="/member/events" element={<MemberEvents />} />
         <Route path="/member/donations" element={<MemberDonations />} />
