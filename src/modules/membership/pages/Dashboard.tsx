@@ -1,25 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BackHome from "../../../components/BackHome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../../services/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function MemberDashboard() {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      if (!u) {
+        navigate("/login");
+      } else {
+        setUser(u);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <div className="p-10 text-center">Loading...</div>;
+  }
+
   return (
     <>
       <BackHome />
 
       <div className="max-w-5xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold text-[#1E3A8A]">Member Dashboard</h1>
+        <h1 className="text-3xl font-bold text-[#1E3A8A]">
+          Member Dashboard
+        </h1>
+
         <p className="text-gray-700 mt-2">
-          Welcome to your ATF Member Portal. Access upcoming events, donations, and profile.
+          Welcome to your ATF Member Portal.
+          {user && (
+            <span className="ml-2 font-semibold text-[#B91C1C]">
+              ({user.email})
+            </span>
+          )}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
-
           <Link
             to="/member/events"
             className="p-6 rounded-xl shadow bg-white hover:bg-gray-100"
           >
-            <h2 className="text-xl font-semibold text-[#B91C1C]">My Events</h2>
+            <h2 className="text-xl font-semibold text-[#B91C1C]">
+              My Events
+            </h2>
             <p className="text-gray-700 text-sm mt-2">
               View registered events.
             </p>
@@ -29,7 +61,9 @@ export default function MemberDashboard() {
             to="/member/profile"
             className="p-6 rounded-xl shadow bg-white hover:bg-gray-100"
           >
-            <h2 className="text-xl font-semibold text-[#1E3A8A]">My Profile</h2>
+            <h2 className="text-xl font-semibold text-[#1E3A8A]">
+              My Profile
+            </h2>
             <p className="text-gray-700 text-sm mt-2">
               Update member details.
             </p>
@@ -39,12 +73,13 @@ export default function MemberDashboard() {
             to="/member/donations"
             className="p-6 rounded-xl shadow bg-white hover:bg-gray-100"
           >
-            <h2 className="text-xl font-semibold text-[#9B1C6C]">My Donations</h2>
+            <h2 className="text-xl font-semibold text-[#9B1C6C]">
+              My Donations
+            </h2>
             <p className="text-gray-700 text-sm mt-2">
               View your contribution history.
             </p>
           </Link>
-
         </div>
       </div>
     </>

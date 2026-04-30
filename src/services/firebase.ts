@@ -1,30 +1,28 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDaADXEFkyRYLcz_0KVen0ejFMOFO4wa94",
-  authDomain: "atf-us.firebaseapp.com",
-  projectId: "atf-us",
-  storageBucket: "atf-us.firebasestorage.app",
-  messagingSenderId: "843622855344",
-  appId: "1:843622855344:web:93b38310ceede49e268175",
-  measurementId: "G-GZXZS3V1CS"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// ✅ Safe init
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// Initialize Services
+// ✅ Services
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
-// Optional: Initialize Analytics safely (only in browser)
+// ✅ Analytics (browser only)
 isSupported().then((yes) => {
-  if (yes) {
-    getAnalytics(app);
-  }
+  if (yes) getAnalytics(app);
 });
