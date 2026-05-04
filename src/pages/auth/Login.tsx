@@ -9,19 +9,42 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
+
     setError("");
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard"); // ✅ Redirect after login
+      console.log("🔥 Attempting login:", email);
+
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email.trim(),   // ✅ IMPORTANT FIX
+        password
+      );
+
+      console.log("✅ LOGIN SUCCESS:", userCredential.user);
+
+      // ✅ FIX: correct route
+      navigate("/member");
+
     } catch (err: any) {
-      console.error(err);
-      setError("Invalid email or password");
+      console.error("❌ LOGIN ERROR:", err.code, err.message);
+
+      // ✅ Better error messages
+      if (err.code === "auth/user-not-found") {
+        setError("User not found");
+      } else if (err.code === "auth/wrong-password") {
+        setError("Incorrect password");
+      } else if (err.code === "auth/invalid-credential") {
+        setError("Invalid email or password");
+      } else {
+        setError("Login failed. Please try again.");
+      }
     }
 
     setLoading(false);
