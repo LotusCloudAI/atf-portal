@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
 import BackHome from "../../../components/BackHome";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../../services/firebase";
+import { auth, db } from "../../../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function MemberDashboard() {
   const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
+    const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (!u) {
         navigate("/login");
       } else {
         setUser(u);
+
+        try {
+          // 🔥 Fetch member profile from Firestore
+          const ref = doc(db, "members", u.uid);
+          const snap = await getDoc(ref);
+
+          if (snap.exists()) {
+            setProfile(snap.data());
+          } else {
+            console.warn("No member profile found in Firestore");
+          }
+        } catch (err) {
+          console.error("Error fetching profile:", err);
+        }
       }
       setLoading(false);
     });
@@ -43,6 +59,13 @@ export default function MemberDashboard() {
             </span>
           )}
         </p>
+
+        {/* 🔥 Show profile data */}
+        {profile && (
+          <p className="text-gray-600 mt-2">
+            Name: <span className="font-semibold">{profile.name}</span>
+          </p>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
           <Link
